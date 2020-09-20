@@ -17,9 +17,11 @@ db();
 
 //Routes files
 const register = require("./routes/register");
+const login = require("./routes/login");
 
 //Routes
 server.use("/emiru/api/register", register);
+server.use("/emiru/api/login", login);
 
 server.use(errorHandler);
 

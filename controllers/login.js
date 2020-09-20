@@ -5,26 +5,36 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const User = require("../db/models/User");
 
-//@desc     Register new user route
-//@route    POST    /emiru/api/register
+//@desc     User login
+//@route    POST    /emiru/api/login
 //@access   Public
-exports.register = asyncHandler(async (req, res, next) => {
+exports.login = asyncHandler(async (req, res, next) => {
   const err = validationResult(req);
-  if (!err.isEmpty()) {
-    return next(new EerrorResponse("Validation error", 400, err.array()));
+  if (!err.isEmpty) {
+    return next(new ErrorResponse("Validation error", 400, err.array()));
   }
 
-  const { name, email, password } = req.body;
-  const role = "placeholder";
+  const { email, password } = req.body;
 
-  const user = new User({ name, email, password, role });
+  let user = await User.findOne({ email });
 
-  const salt = await bcrypt.genSalt(10);
-  const encodedPassword = await bcrypt.hash(password, salt);
+  if (!user) {
+    return next(
+      new ErrorResponse("Invalid credentials", 400, {
+        msg: "Invalid email or password",
+      })
+    );
+  }
 
-  user.password = encodedPassword;
+  const isMatch = await bcrypt.compare(password, user.password);
 
-  await user.save();
+  if (!isMatch) {
+    return next(
+      new ErrorResponse("Invalid credentials", 400, {
+        msg: "Invalid email or password",
+      })
+    );
+  }
 
   //Generate toke
   const payload = {
