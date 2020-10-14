@@ -5,6 +5,10 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const User = require("../db/models/User");
 
+//ENV constants
+const JWT_SECRET = process.env.JWT_SECRET;
+const JWT_EXPIRE = process.env.JWT_EXPIRE;
+
 //@desc     User login
 //@route    POST    /emiru/api/login
 //@access   Public
@@ -42,8 +46,6 @@ exports.login = asyncHandler(async (req, res, next) => {
     role: user.role,
   };
 
-  const JWT_SECRET = process.env.JWT_SECRET;
-  const JWT_EXPIRE = process.env.JWT_EXPIRE;
   jwt.sign(payload, JWT_SECRET, { expiresIn: JWT_EXPIRE }, (err, token) => {
     if (err) {
       next(new Error(err));
