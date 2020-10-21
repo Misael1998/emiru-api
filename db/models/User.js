@@ -18,10 +18,22 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: [true, "Password is required"],
   },
-  role: {
+  roles: {
     type: [String],
     required: true,
     trim: true,
+  },
+  payment: {
+    type: mongoose.Schema.ObjectId,
+    ref: "Payments",
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
+  enterprise: {
+    type: mongoose.Schema.ObjectId,
+    ref: "Enterprises",
   },
 });
 
