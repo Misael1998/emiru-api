@@ -52,6 +52,11 @@ exports.login = asyncHandler(async (req, res, next) => {
     } else {
       return res.status(201).json({
         token,
+        user: {
+          name: user.name,
+          email: user.email,
+          roles: user.role,
+        },
       });
     }
   });
