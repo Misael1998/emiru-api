@@ -11,6 +11,7 @@ router
       check("email").isEmail(),
       check("password").isLength({ min: 8 }),
       check("name").isLength({ min: 2 }),
+      check("type").isLength({ min: 2 }),
     ],
     register
   );

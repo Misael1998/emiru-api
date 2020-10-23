@@ -14,8 +14,20 @@ exports.register = asyncHandler(async (req, res, next) => {
     return next(new EerrorResponse("Validation error", 400, err.array()));
   }
 
-  const { name, email, password } = req.body;
-  const role = "placeholder";
+  const { name, email, password, type } = req.body;
+  let role = "placeholder";
+  switch (type) {
+    case "client":
+      role = "client";
+      break;
+
+    default:
+      return next(
+        new ErrorResponse("Validation error", 400, [
+          { error: "Invalid user type" },
+        ])
+      );
+  }
 
   const user = new User({ name, email, password, role });
 
@@ -40,6 +52,11 @@ exports.register = asyncHandler(async (req, res, next) => {
     } else {
       return res.status(201).json({
         token,
+        user: {
+          name: user.name,
+          email: user.email,
+          roles: user.role,
+        },
       });
     }
   });
