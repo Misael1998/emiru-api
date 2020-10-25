@@ -4,6 +4,7 @@ const ErrorResponse = require("../utils/errorResponse");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const User = require("../db/models/User");
+const Enterprise = require("../db/models/Enterprise");
 
 //@desc     Register new user route
 //@route    POST    /emiru/api/register
@@ -14,22 +15,29 @@ exports.register = asyncHandler(async (req, res, next) => {
     return next(new EerrorResponse("Validation error", 400, err.array()));
   }
 
-  const { name, email, password, type } = req.body;
-  let role = "placeholder";
-  switch (type) {
-    case "client":
-      role = "client";
-      break;
+  const { name, email, password, roles } = req.body;
+  let userRoles = [];
 
-    default:
-      return next(
-        new ErrorResponse("Validation error", 400, [
-          { error: "Invalid user type" },
-        ])
-      );
+  for (role of roles) {
+    switch (role) {
+      case "client":
+        userRoles.push("client");
+        break;
+
+      case "enterprise":
+        userRoles.push("enterprise");
+        break;
+
+      default:
+        return next(
+          new ErrorResponse("Validation error", 400, [
+            { error: "Invalid user type" },
+          ])
+        );
+    }
   }
 
-  const user = new User({ name, email, password, role });
+  const user = new User({ name, email, password, roles });
 
   const salt = await bcrypt.genSalt(10);
   const encodedPassword = await bcrypt.hash(password, salt);
@@ -55,7 +63,7 @@ exports.register = asyncHandler(async (req, res, next) => {
         user: {
           name: user.name,
           email: user.email,
-          roles: user.role,
+          roles: user.roles,
         },
       });
     }

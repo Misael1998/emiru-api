@@ -31,10 +31,6 @@ const UserSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-  enterprise: {
-    type: mongoose.Schema.ObjectId,
-    ref: "Enterprises",
-  },
 });
 
 module.exports = mongoose.model("Users", UserSchema);
