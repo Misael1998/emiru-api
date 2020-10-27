@@ -17,7 +17,7 @@ module.exports = asyncHandler(async (req, res, next) => {
     const decoded = jwt.decode(token, process.env.JWT_SECRET);
     const user = {
       id: decoded.id,
-      role: decoded.role,
+      roles: decoded.roles,
     };
 
     req.user = user;
