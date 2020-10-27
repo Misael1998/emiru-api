@@ -1,10 +1,10 @@
-const { measureMemory } = require("vm");
-
 class ErrorResponse extends Error {
-  constructor(message, code, body) {
+  constructor(message, statusCode, body) {
     super(message);
-    this.code = code;
+    this.statusCode = statusCode;
     this.body = body;
+
+    Error.captureStackTrace(this, this.constructor);
   }
 }
 

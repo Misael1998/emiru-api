@@ -18,10 +18,12 @@ db();
 //Routes files
 const register = require("./routes/register");
 const login = require("./routes/login");
+const token = require("./routes/token");
 
 //Routes
 server.use("/emiru/api/register", register);
 server.use("/emiru/api/login", login);
+server.use("/emiru/api/token", token);
 
 server.use(errorHandler);
 

@@ -1,5 +1,4 @@
 const jwt = require("jsonwebtoken");
-const ErrorResponse = require("../utils/errorResponse");
 const asyncHandler = require("./asyncHandler");
 
 module.exports = asyncHandler(async (req, res, next) => {
