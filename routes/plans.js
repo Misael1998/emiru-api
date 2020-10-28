@@ -1,10 +1,15 @@
 const express = require("express");
-const { check } = require("express-validator");
 const router = express.Router();
+const { check } = require("express-validator");
 const auth = require("../middleware/auth");
 const authorize = require("../middleware/authorize");
 
-const { createPlan, updatePlan, getPlans } = require("../controllers/plans");
+const {
+  createPlan,
+  updatePlan,
+  getPlans,
+  deletePlan,
+} = require("../controllers/plans");
 
 router
   .route("/")
@@ -17,7 +22,8 @@ router
       check("pages").isNumeric({ min: 0 }),
     ],
     auth,
-    authorize("admin")
+    authorize("admin"),
+    createPlan
   )
   .patch(
     [
@@ -28,7 +34,8 @@ router
       check("id"),
     ],
     auth,
-    authorize("admin")
+    authorize("admin"),
+    updatePlan
   )
   .delete(
     [
@@ -39,7 +46,8 @@ router
       check("id"),
     ],
     auth,
-    authorize("admin")
+    authorize("admin"),
+    deletePlan
   );
 
-module.expports = router;
+module.exports = router;

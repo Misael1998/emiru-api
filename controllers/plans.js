@@ -46,7 +46,7 @@ exports.updatePlan = asyncHandler(async (req, res, next) => {
 });
 
 //@desc     Create plans
-//@route    PATCH    /emiru/api/plans
+//@route    DELETE    /emiru/api/plans
 //@access   Private, Restricted
 exports.deletePlan = asyncHandler(async (req, res, next) => {
   const err = validationResult(req);

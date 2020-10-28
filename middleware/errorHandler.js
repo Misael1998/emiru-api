@@ -9,7 +9,8 @@ const errorHandler = (err, req, res, next) => {
 
   //Handle mongo errors
   if ((err.name = "MongoError")) {
-    if (err.statusCode == 11000) {
+    if (err.code == 11000) {
+      console.log("pass");
       error = new ErrorResponse("Can't create user", 400, {
         error: "Duplicate email",
       });

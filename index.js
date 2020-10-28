@@ -19,11 +19,15 @@ db();
 const register = require("./routes/register");
 const login = require("./routes/login");
 const token = require("./routes/token");
+const plans = require("./routes/plans");
+const user = require("./routes/user");
 
 //Routes
 server.use("/emiru/api/register", register);
 server.use("/emiru/api/login", login);
 server.use("/emiru/api/token", token);
+server.use("/emiru/api/plans", plans);
+server.use("/emiru/api/user", user);
 
 server.use(errorHandler);
 

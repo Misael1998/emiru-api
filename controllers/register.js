@@ -4,7 +4,6 @@ const ErrorResponse = require("../utils/errorResponse");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const User = require("../db/models/User");
-const Enterprise = require("../db/models/Enterprise");
 
 //@desc     Register new user route
 //@route    POST    /emiru/api/register
@@ -12,7 +11,7 @@ const Enterprise = require("../db/models/Enterprise");
 exports.register = asyncHandler(async (req, res, next) => {
   const err = validationResult(req);
   if (!err.isEmpty()) {
-    return next(new EerrorResponse("Validation error", 400, err.array()));
+    return next(new ErrorResponse("Validation error", 400, err.array()));
   }
 
   const { name, email, password, roles } = req.body;

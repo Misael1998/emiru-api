@@ -50,7 +50,7 @@ exports.login = asyncHandler(async (req, res, next) => {
     if (err) {
       next(new Error(err));
     } else {
-      return res.status(201).json({
+      return res.status(200).json({
         token,
         user: {
           name: user.name,
