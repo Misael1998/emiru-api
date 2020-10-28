@@ -43,7 +43,7 @@ exports.login = asyncHandler(async (req, res, next) => {
   //Generate toke
   const payload = {
     user: user.id,
-    role: user.role,
+    roles: user.roles,
   };
 
   jwt.sign(payload, JWT_SECRET, { expiresIn: JWT_EXPIRE }, (err, token) => {
