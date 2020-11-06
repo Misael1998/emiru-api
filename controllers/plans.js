@@ -28,7 +28,7 @@ exports.createPlan = asyncHandler(async (req, res, next) => {
 
   await plan.save();
 
-  return res.ststus(201).json(plans);
+  return res.status(201).json(plan);
 });
 
 //@desc     Create plans

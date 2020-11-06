@@ -18,7 +18,7 @@ router
     [
       check("name").isString().isLength({ min: 2 }),
       check("price").isNumeric({ min: 0 }),
-      check("store").isNumeric({ min: 0 }),
+      check("stores").isNumeric({ min: 0 }),
       check("pages").isNumeric({ min: 0 }),
     ],
     auth,
@@ -29,7 +29,7 @@ router
     [
       check("name"),
       check("price"),
-      check("store"),
+      check("stores"),
       check("pages"),
       check("id"),
     ],
@@ -41,7 +41,7 @@ router
     [
       check("name"),
       check("price"),
-      check("store"),
+      check("stores"),
       check("pages"),
       check("id"),
     ],
